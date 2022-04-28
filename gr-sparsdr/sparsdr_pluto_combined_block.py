@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+#
+# SPDX-License-Identifier: GPL-3.0
+#
+# GNU Radio Python Flow Graph
+# Title: Sparsdr Pluto Combined Block
+# GNU Radio version: 3.8.3.0
+
+from gnuradio import analog
+import math
+from gnuradio import blocks
+from gnuradio import digital
+from gnuradio import filter
+from gnuradio import gr
+from gnuradio.filter import firdes
+import sys
+import signal
+from argparse import ArgumentParser
+from gnuradio.eng_arg import eng_float, intx
+from gnuradio import eng_notation
+import ieee802_15_4
+import sparsdr
+import distutils.spawn
+
+
+class sparsdr_pluto_combined_block(gr.top_block):
+
+    def __init__(self):
+        gr.top_block.__init__(self, "Sparsdr Pluto Combined Block")
+
+        ##################################################
+        # Variables
+        ##################################################
+        self.freq1 = freq1 = 1*2.425e9+0*2.426e9
+        self.freq_c = freq_c = 0*(freq1 - 14e6) + 2.425e9
+        self.freq2 = freq2 = 1*2.450e9+0*2.426e9
+        self.freq0 = freq0 = 1*2.405e9+0*2.426e9
+        variable_sparsdr_combined_pluto_receiver_0_bands = sparsdr.band_spec_vector()
+        variable_sparsdr_combined_pluto_receiver_0_bands.push_back(sparsdr.band_spec(freq0+0*2.426e9, 64))
+        variable_sparsdr_combined_pluto_receiver_0_bands.push_back(sparsdr.band_spec(freq1, 64))
+        variable_sparsdr_combined_pluto_receiver_0_bands.push_back(sparsdr.band_spec(freq2, 64))
+        self.variable_sparsdr_combined_pluto_receiver_0 = variable_sparsdr_combined_pluto_receiver_0 = sparsdr.combined_pluto_receiver(uri='ip:192.168.2.1', buffer_size=1024 * 1024, fft_size=1024, center_frequency=int(freq_c+0*2412000000), bands=variable_sparsdr_combined_pluto_receiver_0_bands, reconstruct_path=distutils.spawn.find_executable('/home/gnuradio/.cargo/bin/sparsdr_reconstruct'), zero_gaps=True)
+        self.variable_sparsdr_combined_pluto_receiver_0.set_frequency(int(freq_c+0*2412000000))
+        self.variable_sparsdr_combined_pluto_receiver_0.set_gain_control_mode('fast_attack')
+        self.variable_sparsdr_combined_pluto_receiver_0.stop_all()
+        self.variable_sparsdr_combined_pluto_receiver_0.set_shift_amount(6)
+        self.variable_sparsdr_combined_pluto_receiver_0.set_fft_size(1024)
+        self.variable_sparsdr_combined_pluto_receiver_0.load_rounded_hann_window(1024)
+        self.variable_sparsdr_combined_pluto_receiver_0.set_bin_spec('0..1024:204800')
+        self.variable_sparsdr_combined_pluto_receiver_0.start_all()
+
+        ##################################################
+        # Blocks
+        ##################################################
+        self.single_pole_iir_filter_xx_0_0_1 = filter.single_pole_iir_filter_ff(0.00016, 1)
+        self.single_pole_iir_filter_xx_0_0 = filter.single_pole_iir_filter_ff(0.00016, 1)
+        self.single_pole_iir_filter_xx_0 = filter.single_pole_iir_filter_ff(0.00016, 1)
+        self.ieee802_15_4_packet_sink_0_0_1 = ieee802_15_4.packet_sink(10)
+        self.ieee802_15_4_packet_sink_0_0 = ieee802_15_4.packet_sink(10)
+        self.ieee802_15_4_packet_sink_0 = ieee802_15_4.packet_sink(10)
+        self.digital_clock_recovery_mm_xx_0_0_1 = digital.clock_recovery_mm_ff(1.92, 0.000225, 0.5, 0.03, 0.0002)
+        self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(1.92, 0.000225, 0.5, 0.03, 0.0002)
+        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(1.92, 0.000225, 0.5, 0.03, 0.0002)
+        self.blocks_sub_xx_0_0_1 = blocks.sub_ff(1)
+        self.blocks_sub_xx_0_0 = blocks.sub_ff(1)
+        self.blocks_sub_xx_0 = blocks.sub_ff(1)
+        self.blocks_message_debug_0_0_1 = blocks.message_debug()
+        self.blocks_message_debug_0_0 = blocks.message_debug()
+        self.blocks_message_debug_0 = blocks.message_debug()
+        self.analog_quadrature_demod_cf_0_0_1 = analog.quadrature_demod_cf(1)
+        self.analog_quadrature_demod_cf_0_0 = analog.quadrature_demod_cf(1)
+        self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
+
+
+        ##################################################
+        # Connections
+        ##################################################
+        self.msg_connect((self.ieee802_15_4_packet_sink_0, 'out'), (self.blocks_message_debug_0, 'print_pdu'))
+        self.msg_connect((self.ieee802_15_4_packet_sink_0_0, 'out'), (self.blocks_message_debug_0_0, 'print_pdu'))
+        self.msg_connect((self.ieee802_15_4_packet_sink_0_0_1, 'out'), (self.blocks_message_debug_0_0_1, 'print_pdu'))
+        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.blocks_sub_xx_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.single_pole_iir_filter_xx_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.blocks_sub_xx_0_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.single_pole_iir_filter_xx_0_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0_1, 0), (self.blocks_sub_xx_0_0_1, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0_1, 0), (self.single_pole_iir_filter_xx_0_0_1, 0))
+        self.connect((self.blocks_sub_xx_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
+        self.connect((self.blocks_sub_xx_0_0, 0), (self.digital_clock_recovery_mm_xx_0_0, 0))
+        self.connect((self.blocks_sub_xx_0_0_1, 0), (self.digital_clock_recovery_mm_xx_0_0_1, 0))
+        self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.ieee802_15_4_packet_sink_0, 0))
+        self.connect((self.digital_clock_recovery_mm_xx_0_0, 0), (self.ieee802_15_4_packet_sink_0_0, 0))
+        self.connect((self.digital_clock_recovery_mm_xx_0_0_1, 0), (self.ieee802_15_4_packet_sink_0_0_1, 0))
+        self.connect((self.single_pole_iir_filter_xx_0, 0), (self.blocks_sub_xx_0, 1))
+        self.connect((self.single_pole_iir_filter_xx_0_0, 0), (self.blocks_sub_xx_0_0, 1))
+        self.connect((self.single_pole_iir_filter_xx_0_0_1, 0), (self.blocks_sub_xx_0_0_1, 1))
+        self.connect((self.variable_sparsdr_combined_pluto_receiver_0, 0), (self.analog_quadrature_demod_cf_0, 0))
+        self.connect((self.variable_sparsdr_combined_pluto_receiver_0, 1), (self.analog_quadrature_demod_cf_0_0, 0))
+        self.connect((self.variable_sparsdr_combined_pluto_receiver_0, 2), (self.analog_quadrature_demod_cf_0_0_1, 0))
+
+
+    def get_freq1(self):
+        return self.freq1
+
+    def set_freq1(self, freq1):
+        self.freq1 = freq1
+        self.set_freq_c(0*(self.freq1 - 14e6) + 2.425e9)
+
+    def get_freq_c(self):
+        return self.freq_c
+
+    def set_freq_c(self, freq_c):
+        self.freq_c = freq_c
+
+    def get_freq2(self):
+        return self.freq2
+
+    def set_freq2(self, freq2):
+        self.freq2 = freq2
+
+    def get_freq0(self):
+        return self.freq0
+
+    def set_freq0(self, freq0):
+        self.freq0 = freq0
+
+    def get_variable_sparsdr_combined_pluto_receiver_0(self):
+        return self.variable_sparsdr_combined_pluto_receiver_0
+
+    def set_variable_sparsdr_combined_pluto_receiver_0(self, variable_sparsdr_combined_pluto_receiver_0):
+        self.variable_sparsdr_combined_pluto_receiver_0 = variable_sparsdr_combined_pluto_receiver_0
+
+
+
+
+
+def main(top_block_cls=sparsdr_pluto_combined_block, options=None):
+    tb = top_block_cls()
+
+    def sig_handler(sig=None, frame=None):
+        tb.stop()
+        tb.wait()
+
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, sig_handler)
+    signal.signal(signal.SIGTERM, sig_handler)
+
+    tb.start()
+
+    try:
+        input('Press Enter to quit: ')
+    except EOFError:
+        pass
+    tb.stop()
+    tb.wait()
+
+
+if __name__ == '__main__':
+    main()

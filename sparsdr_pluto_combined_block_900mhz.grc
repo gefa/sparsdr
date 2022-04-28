@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: no_gui
     hier_block_src_path: '.:'
-    id: sparsdr_pluto_combined_block
+    id: sparsdr_pluto_combined_block_900mhz
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -32,11 +32,11 @@ options:
     state: enabled
 
 blocks:
-- name: freq
+- name: freq0
   id: variable
   parameters:
     comment: ''
-    value: 0*2.475e9+1*2.426e9+0*2.425e9
+    value: 1*2.405e9+0*2.426e9
   states:
     bus_sink: false
     bus_source: false
@@ -44,11 +44,35 @@ blocks:
     coordinate: [320, 52.0]
     rotation: 0
     state: true
+- name: freq1
+  id: variable
+  parameters:
+    comment: ''
+    value: 1*2.425e9+0*2.426e9
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [416, 52.0]
+    rotation: 0
+    state: true
+- name: freq2
+  id: variable
+  parameters:
+    comment: ''
+    value: 1*2.450e9+0*2.426e9
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 52.0]
+    rotation: 0
+    state: true
 - name: freq_c
   id: variable
   parameters:
     comment: ''
-    value: freq - 14e6
+    value: 0*(freq1 - 14e6) + 2.425e9
   states:
     bus_sink: false
     bus_source: false
@@ -60,7 +84,7 @@ blocks:
   id: variable_sparsdr_combined_pluto_receiver
   parameters:
     band_0_bins: '64'
-    band_0_frequency: freq+0*2.426e9
+    band_0_frequency: freq0+0*2.426e9
     band_10_bins: '1024'
     band_10_frequency: '0.0'
     band_11_bins: '1024'
@@ -81,8 +105,8 @@ blocks:
     band_18_frequency: '0.0'
     band_19_bins: '1024'
     band_19_frequency: '0.0'
-    band_1_bins: '1024'
-    band_1_frequency: '0.0'
+    band_1_bins: '64'
+    band_1_frequency: freq1
     band_20_bins: '1024'
     band_20_frequency: '0.0'
     band_21_bins: '1024'
@@ -103,8 +127,8 @@ blocks:
     band_28_frequency: '0.0'
     band_29_bins: '1024'
     band_29_frequency: '0.0'
-    band_2_bins: '1024'
-    band_2_frequency: '0.0'
+    band_2_bins: '64'
+    band_2_frequency: freq2
     band_30_bins: '1024'
     band_30_frequency: '0.0'
     band_31_bins: '1024'
@@ -123,26 +147,26 @@ blocks:
     band_8_frequency: '0.0'
     band_9_bins: '1024'
     band_9_frequency: '0.0'
-    band_count: '1'
+    band_count: '3'
     bin_spec: 0..1024:204800
     buffer_size: 1024 * 1024
     comment: ''
     fft_size: '1024'
     frequency: int(freq_c+0*2412000000)
     gain: '60'
-    gain_control_mode: manual
+    gain_control_mode: fast_attack
     reconstruct_path: /home/gnuradio/.cargo/bin/sparsdr_reconstruct
     shift_amount: '6'
     skip_config: 'False'
     threshold_file: ''
     threshold_source: Bin specification
     uri: ip:192.168.2.1
-    zero_gaps: 'False'
+    zero_gaps: 'True'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 116]
+    coordinate: [144, 116.0]
     rotation: 0
     state: enabled
 - name: variable_sparsdr_combined_pluto_receiver_0_0
@@ -320,7 +344,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [776, 172.0]
+    coordinate: [104, 612.0]
     rotation: 0
     state: disabled
 - name: variable_sparsdr_simple_combined_pluto_receiver_0
@@ -406,9 +430,73 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [776, 396.0]
+    coordinate: [104, 844.0]
     rotation: 0
     state: disabled
+- name: analog_quadrature_demod_cf_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 196.0]
+    rotation: 0
+    state: enabled
+- name: analog_quadrature_demod_cf_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 404.0]
+    rotation: 0
+    state: enabled
+- name: analog_quadrature_demod_cf_0_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 1156.0]
+    rotation: 0
+    state: disabled
+- name: analog_quadrature_demod_cf_0_0_1
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 564.0]
+    rotation: 0
+    state: enabled
 - name: blocks_file_sink_0
   id: blocks_file_sink
   parameters:
@@ -424,9 +512,133 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [520, 156.0]
+    coordinate: [536, 84.0]
     rotation: 0
     state: disabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1320, 216.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1288, 424.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0_0_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1320, 1160.0]
+    rotation: 0
+    state: disabled
+- name: blocks_message_debug_0_0_1
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1296, 600.0]
+    rotation: 0
+    state: enabled
+- name: blocks_sub_xx_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 264.0]
+    rotation: 0
+    state: enabled
+- name: blocks_sub_xx_0_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [664, 472.0]
+    rotation: 0
+    state: enabled
+- name: blocks_sub_xx_0_0_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 1208.0]
+    rotation: 0
+    state: disabled
+- name: blocks_sub_xx_0_0_1
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 648.0]
+    rotation: 0
+    state: enabled
 - name: blocks_tag_debug_0
   id: blocks_tag_debug
   parameters:
@@ -443,7 +655,155 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 84.0]
+    coordinate: [600, 12.0]
+    rotation: 0
+    state: disabled
+- name: digital_clock_recovery_mm_xx_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.03'
+    gain_omega: '0.000225'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '1.92'
+    omega_relative_limit: '0.0002'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [840, 244.0]
+    rotation: 0
+    state: enabled
+- name: digital_clock_recovery_mm_xx_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.03'
+    gain_omega: '0.000225'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '1.92'
+    omega_relative_limit: '0.0002'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [808, 452.0]
+    rotation: 0
+    state: enabled
+- name: digital_clock_recovery_mm_xx_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.03'
+    gain_omega: '0.000225'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '1.92'
+    omega_relative_limit: '0.0002'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [840, 1204.0]
+    rotation: 0
+    state: disabled
+- name: digital_clock_recovery_mm_xx_0_0_1
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.03'
+    gain_omega: '0.000225'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '1.92'
+    omega_relative_limit: '0.0002'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [816, 612.0]
+    rotation: 0
+    state: enabled
+- name: ieee802_15_4_packet_sink_0
+  id: ieee802_15_4_packet_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    th: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1080, 276.0]
+    rotation: 0
+    state: enabled
+- name: ieee802_15_4_packet_sink_0_0
+  id: ieee802_15_4_packet_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    th: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 484.0]
+    rotation: 0
+    state: enabled
+- name: ieee802_15_4_packet_sink_0_0_0
+  id: ieee802_15_4_packet_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    th: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1080, 1236.0]
+    rotation: 0
+    state: disabled
+- name: ieee802_15_4_packet_sink_0_0_1
+  id: ieee802_15_4_packet_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    th: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 644.0]
     rotation: 0
     state: enabled
 - name: qtgui_waterfall_sink_x_0
@@ -504,14 +864,110 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 256.0]
+    coordinate: [760, 32.0]
     rotation: 0
     state: disabled
+- name: single_pole_iir_filter_xx_0
+  id: single_pole_iir_filter_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.00016'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 292.0]
+    rotation: 0
+    state: enabled
+- name: single_pole_iir_filter_xx_0_0
+  id: single_pole_iir_filter_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.00016'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 500.0]
+    rotation: 0
+    state: enabled
+- name: single_pole_iir_filter_xx_0_0_0
+  id: single_pole_iir_filter_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.00016'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 1252.0]
+    rotation: 0
+    state: disabled
+- name: single_pole_iir_filter_xx_0_0_1
+  id: single_pole_iir_filter_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '0.00016'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 660.0]
+    rotation: 0
+    state: enabled
 
 connections:
+- [analog_quadrature_demod_cf_0, '0', blocks_sub_xx_0, '0']
+- [analog_quadrature_demod_cf_0, '0', single_pole_iir_filter_xx_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', blocks_sub_xx_0_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', single_pole_iir_filter_xx_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_1, '0', blocks_sub_xx_0_0_1, '0']
+- [analog_quadrature_demod_cf_0_0_1, '0', single_pole_iir_filter_xx_0_0_1, '0']
+- [blocks_sub_xx_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [blocks_sub_xx_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [blocks_sub_xx_0_0_1, '0', digital_clock_recovery_mm_xx_0_0_1, '0']
+- [digital_clock_recovery_mm_xx_0, '0', ieee802_15_4_packet_sink_0, '0']
+- [digital_clock_recovery_mm_xx_0_0, '0', ieee802_15_4_packet_sink_0_0, '0']
+- [digital_clock_recovery_mm_xx_0_0_1, '0', ieee802_15_4_packet_sink_0_0_1, '0']
+- [ieee802_15_4_packet_sink_0, out, blocks_message_debug_0, print_pdu]
+- [ieee802_15_4_packet_sink_0_0, out, blocks_message_debug_0_0, print_pdu]
+- [ieee802_15_4_packet_sink_0_0_1, out, blocks_message_debug_0_0_1, print_pdu]
+- [single_pole_iir_filter_xx_0, '0', blocks_sub_xx_0, '1']
+- [single_pole_iir_filter_xx_0_0, '0', blocks_sub_xx_0_0, '1']
+- [single_pole_iir_filter_xx_0_0_1, '0', blocks_sub_xx_0_0_1, '1']
+- [variable_sparsdr_combined_pluto_receiver_0, '0', analog_quadrature_demod_cf_0,
+  '0']
 - [variable_sparsdr_combined_pluto_receiver_0, '0', blocks_file_sink_0, '0']
 - [variable_sparsdr_combined_pluto_receiver_0, '0', blocks_tag_debug_0, '0']
 - [variable_sparsdr_combined_pluto_receiver_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [variable_sparsdr_combined_pluto_receiver_0, '1', analog_quadrature_demod_cf_0_0,
+  '0']
+- [variable_sparsdr_combined_pluto_receiver_0, '2', analog_quadrature_demod_cf_0_0_1,
+  '0']
 
 metadata:
   file_format: 1

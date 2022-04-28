@@ -26,14 +26,10 @@ namespace std {
 
 %{
 #include "sparsdr/reconstruct.h"
-#include "sparsdr/compressing_usrp_source.h"
 #include "sparsdr/compressing_pluto_source.h"
 #include "sparsdr/iio_device_source.h"
-#include "sparsdr/swap_16.h"
-#include "sparsdr/combined_usrp_receiver.h"
 #include "sparsdr/combined_pluto_receiver.h"
 #include "sparsdr/simple_combined_pluto_receiver.h"
-#include "sparsdr/simple_combined_usrp_receiver.h"
 #include "sparsdr/compressing_source.h"
 using namespace gr::sparsdr;
 %}
@@ -42,20 +38,11 @@ using namespace gr::sparsdr;
 
 %include "sparsdr/reconstruct.h"
 GR_SWIG_BLOCK_MAGIC2(sparsdr, reconstruct);
-%include "sparsdr/compressing_usrp_source.h"
-GR_SWIG_BLOCK_MAGIC2(sparsdr, compressing_usrp_source);
 %include "sparsdr/compressing_pluto_source.h"
 GR_SWIG_BLOCK_MAGIC2(sparsdr, compressing_pluto_source);
 %include "sparsdr/iio_device_source.h"
 GR_SWIG_BLOCK_MAGIC2(sparsdr, iio_device_source);
-%include "sparsdr/swap_16.h"
-GR_SWIG_BLOCK_MAGIC2(sparsdr, swap_16);
-%include "sparsdr/combined_usrp_receiver.h"
-GR_SWIG_BLOCK_MAGIC2(sparsdr, combined_usrp_receiver);
 %include "sparsdr/combined_pluto_receiver.h"
 GR_SWIG_BLOCK_MAGIC2(sparsdr, combined_pluto_receiver);
 %include "sparsdr/simple_combined_pluto_receiver.h"
 GR_SWIG_BLOCK_MAGIC2(sparsdr, simple_combined_pluto_receiver);
-%include "sparsdr/simple_combined_usrp_receiver.h"
-GR_SWIG_BLOCK_MAGIC2(sparsdr, simple_combined_usrp_receiver);
-

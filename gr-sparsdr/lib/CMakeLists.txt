@@ -23,7 +23,6 @@
 # Find library dependencies
 ########################################################################
 
-find_package(UHD REQUIRED)
 find_package(IIO REQUIRED)
 
 ########################################################################
@@ -34,17 +33,12 @@ include(GrPlatform) #define LIB_SUFFIX
 list(APPEND sparsdr_sources
     combined_common.cc
     combined_pluto_receiver_impl.cc
-    combined_usrp_receiver_impl.cc
-    compressing_usrp_source_impl.cc
     compressing_pluto_source_impl.cc
     compressing_source.cc
-    endian_converter.cc
     fft_bin_calculator.c
     iio_device_source_impl.cc
     reconstruct_impl.cc
     simple_combined_pluto_receiver_impl.cc
-    simple_combined_usrp_receiver_impl.cc
-    swap_16_impl.cc
     threshold_file.cc
     window.cc
 )
@@ -58,9 +52,7 @@ endif(NOT sparsdr_sources)
 add_library(gnuradio-sparsdr SHARED ${sparsdr_sources})
 target_link_libraries(gnuradio-sparsdr
     gnuradio::gnuradio-runtime
-    gnuradio::gnuradio-uhd
     gnuradio::gnuradio-blocks
-    UHD::uhd
     IIO::IIO
 )
 target_include_directories(gnuradio-sparsdr
@@ -101,9 +93,9 @@ include(GrTest)
 # If your unit tests require special include paths, add them here
 #include_directories()
 # List all files that contain Boost.UTF unit tests here
-list(APPEND test_sparsdr_sources
-    qa_threshold_file.cc
-)
+#list(APPEND test_sparsdr_sources
+#    qa_threshold_file.cc
+#)
 # Anything we need to link to for the unit tests go here
 list(APPEND GR_TEST_TARGET_DEPS gnuradio-sparsdr)
 
