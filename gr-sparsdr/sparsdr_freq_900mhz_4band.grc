@@ -1,0 +1,500 @@
+options:
+  parameters:
+    author: ''
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: sparsdr_freq_900mhz_4band
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: ''
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: bins0
+  id: variable
+  parameters:
+    comment: ''
+    value: 14*0+8*0+50
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [888, 36.0]
+    rotation: 0
+    state: enabled
+- name: freq0
+  id: variable
+  parameters:
+    comment: ''
+    value: 0*2.425e9+0*2.426e9+910290000
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [320, 52.0]
+    rotation: 0
+    state: true
+- name: freq1
+  id: variable
+  parameters:
+    comment: ''
+    value: 0*2.405e9+0*2.426e9+908.60e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 52.0]
+    rotation: 0
+    state: true
+- name: freq2
+  id: variable
+  parameters:
+    comment: ''
+    value: 0*2.450e9+0*2.426e9+916e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 52.0]
+    rotation: 0
+    state: true
+- name: freq3
+  id: variable
+  parameters:
+    comment: ''
+    value: 923.29e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 52.0]
+    rotation: 0
+    state: true
+- name: freq_c
+  id: variable
+  parameters:
+    comment: ''
+    value: 0*(freq1 - 14e6) + 0*2.425e9 + freq0
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 52.0]
+    rotation: 0
+    state: true
+- name: plen
+  id: variable
+  parameters:
+    comment: ''
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1088, 376.0]
+    rotation: 0
+    state: true
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: bins0*61440000/1024
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [968, 44.0]
+    rotation: 0
+    state: enabled
+- name: taps
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.low_pass(1,samp_rate,150e3,50e3,firdes.WIN_HAMMING)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 44.0]
+    rotation: 0
+    state: enabled
+- name: variable_sparsdr_combined_pluto_receiver_0
+  id: variable_sparsdr_combined_pluto_receiver
+  parameters:
+    band_0_bins: bins0
+    band_0_frequency: freq1
+    band_10_bins: '1024'
+    band_10_frequency: '0.0'
+    band_11_bins: '1024'
+    band_11_frequency: '0.0'
+    band_12_bins: '1024'
+    band_12_frequency: '0.0'
+    band_13_bins: '1024'
+    band_13_frequency: '0.0'
+    band_14_bins: '1024'
+    band_14_frequency: '0.0'
+    band_15_bins: '1024'
+    band_15_frequency: '0.0'
+    band_16_bins: '1024'
+    band_16_frequency: '0.0'
+    band_17_bins: '1024'
+    band_17_frequency: '0.0'
+    band_18_bins: '1024'
+    band_18_frequency: '0.0'
+    band_19_bins: '1024'
+    band_19_frequency: '0.0'
+    band_1_bins: bins0
+    band_1_frequency: freq0
+    band_20_bins: '1024'
+    band_20_frequency: '0.0'
+    band_21_bins: '1024'
+    band_21_frequency: '0.0'
+    band_22_bins: '1024'
+    band_22_frequency: '0.0'
+    band_23_bins: '1024'
+    band_23_frequency: '0.0'
+    band_24_bins: '1024'
+    band_24_frequency: '0.0'
+    band_25_bins: '1024'
+    band_25_frequency: '0.0'
+    band_26_bins: '1024'
+    band_26_frequency: '0.0'
+    band_27_bins: '1024'
+    band_27_frequency: '0.0'
+    band_28_bins: '1024'
+    band_28_frequency: '0.0'
+    band_29_bins: '1024'
+    band_29_frequency: '0.0'
+    band_2_bins: bins0
+    band_2_frequency: freq2
+    band_30_bins: '1024'
+    band_30_frequency: '0.0'
+    band_31_bins: '1024'
+    band_31_frequency: '0.0'
+    band_3_bins: bins0
+    band_3_frequency: freq3
+    band_4_bins: '1024'
+    band_4_frequency: '0.0'
+    band_5_bins: '1024'
+    band_5_frequency: '0.0'
+    band_6_bins: '1024'
+    band_6_frequency: '0.0'
+    band_7_bins: '1024'
+    band_7_frequency: '0.0'
+    band_8_bins: '1024'
+    band_8_frequency: '0.0'
+    band_9_bins: '1024'
+    band_9_frequency: '0.0'
+    band_count: '1'
+    bin_spec: 0..1024:204800
+    buffer_size: 1024 * 1024
+    comment: ''
+    fft_size: '1024'
+    frequency: int(freq_c+0*2412000000)
+    gain: '60'
+    gain_control_mode: slow_attack
+    reconstruct_path: /home/gnuradio/.cargo/bin/sparsdr_reconstruct
+    shift_amount: '6'
+    skip_config: 'False'
+    threshold_file: ''
+    threshold_source: Bin specification
+    uri: ip:192.168.2.1
+    zero_gaps: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [72, 116.0]
+    rotation: 0
+    state: enabled
+- name: bar_burst_tagger_0
+  id: bar_burst_tagger
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mult: '1'
+    tag_name: pmt.intern("burst_len")
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 124.0]
+    rotation: 0
+    state: true
+- name: bar_pad_tagged_stream_0
+  id: bar_pad_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    buffer_size: '0x8000'
+    comment: ''
+    len_tag_name: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [624, 396.0]
+    rotation: 0
+    state: disabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1136, 440.0]
+    rotation: 0
+    state: enabled
+- name: blocks_null_source_0
+  id: blocks_null_source
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_source: '[[0,],]'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_outputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 144.0]
+    rotation: 0
+    state: disabled
+- name: blocks_stream_to_tagged_stream_0
+  id: blocks_stream_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    len_tag_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    packet_len: plen
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 140.0]
+    rotation: 0
+    state: disabled
+- name: blocks_stream_to_tagged_stream_0_0
+  id: blocks_stream_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    len_tag_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    packet_len: plen
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 196.0]
+    rotation: 0
+    state: disabled
+- name: blocks_stream_to_tagged_stream_0_0_0
+  id: blocks_stream_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    len_tag_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    packet_len: plen
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 252.0]
+    rotation: 0
+    state: disabled
+- name: blocks_stream_to_tagged_stream_0_0_0_0
+  id: blocks_stream_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    len_tag_key: '"packet_len"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    packet_len: plen
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [440, 308.0]
+    rotation: 0
+    state: disabled
+- name: blocks_tagged_stream_to_pdu_0
+  id: blocks_tagged_stream_to_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: burst_len
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 148.0]
+    rotation: 0
+    state: true
+- name: blocks_tagged_stream_to_pdu_0_0
+  id: blocks_tagged_stream_to_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: packet_len
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 204.0]
+    rotation: 0
+    state: disabled
+- name: blocks_tagged_stream_to_pdu_0_0_0
+  id: blocks_tagged_stream_to_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: packet_len
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 260.0]
+    rotation: 0
+    state: disabled
+- name: blocks_tagged_stream_to_pdu_0_0_0_0
+  id: blocks_tagged_stream_to_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: packet_len
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 316.0]
+    rotation: 0
+    state: disabled
+- name: blocks_tags_strobe_0
+  id: blocks_tags_strobe
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    key: pmt.intern("strobe")
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nsamps: '1000'
+    type: complex
+    value: pmt.intern("TEST")
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 464.0]
+    rotation: 0
+    state: disabled
+- name: blocks_test_tag_variable_rate_ff_0
+  id: blocks_test_tag_variable_rate_ff
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    once: 'False'
+    step: '0.001'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 456.0]
+    rotation: 0
+    state: disabled
+
+connections:
+- [bar_burst_tagger_0, '0', blocks_tagged_stream_to_pdu_0, '0']
+- [blocks_null_source_0, '0', blocks_stream_to_tagged_stream_0, '0']
+- [blocks_null_source_0, '0', blocks_stream_to_tagged_stream_0_0, '0']
+- [blocks_null_source_0, '0', blocks_stream_to_tagged_stream_0_0_0, '0']
+- [blocks_null_source_0, '0', blocks_stream_to_tagged_stream_0_0_0_0, '0']
+- [blocks_stream_to_tagged_stream_0, '0', blocks_tagged_stream_to_pdu_0, '0']
+- [blocks_stream_to_tagged_stream_0_0, '0', blocks_tagged_stream_to_pdu_0_0, '0']
+- [blocks_stream_to_tagged_stream_0_0_0, '0', blocks_tagged_stream_to_pdu_0_0_0, '0']
+- [blocks_stream_to_tagged_stream_0_0_0_0, '0', blocks_tagged_stream_to_pdu_0_0_0_0,
+  '0']
+- [blocks_tagged_stream_to_pdu_0, pdus, blocks_message_debug_0, print]
+- [blocks_tagged_stream_to_pdu_0_0, pdus, blocks_message_debug_0, print]
+- [blocks_tagged_stream_to_pdu_0_0_0, pdus, blocks_message_debug_0, print]
+- [blocks_tagged_stream_to_pdu_0_0_0_0, pdus, blocks_message_debug_0, print]
+- [variable_sparsdr_combined_pluto_receiver_0, '0', bar_burst_tagger_0, '0']
+- [variable_sparsdr_combined_pluto_receiver_0, '0', blocks_stream_to_tagged_stream_0,
+  '0']
+
+metadata:
+  file_format: 1
